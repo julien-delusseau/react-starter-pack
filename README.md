@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# Starter Pack Documentation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ce starter pack va vous aider à la mise en place de votre projet.  
+Téléchargez ce projet depuis Github, et exécuter la commande _npm install_ à l'intérieur du dossier racine afin d'installer les dépendances.
 
-## Available Scripts
+## Sommaire
 
-In the project directory, you can run:
+* components
+* routes
+* links
+* useState
+* useEffect
+* helpers
 
-### `npm start`
+## Components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Les composants sont le coeur même de React.  
+Afin d'être le plus modulaire, vous pouvez découper votre code en plusieurs parties.  
+Ces même parties peuvent êtres réutilisées plus tard, et modifiables à volonté grâce aux _Props_.  
+La convention veut que ces composants soient rangés dans le dossier **src/components** du projet.  
+Vous y trouverez l'exemple de composent _Header_.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Routes
 
-### `npm test`
+Afin d'accéder à vos différentes pages, utiliser le component **Route**, de react-router-dom.  
+Ces même routes devront se trouver à l'intérieur du component **Switch**.  
+Voir le fichier _App.js_ pour quelques exemples.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Links
 
-### `npm run build`
+Nous utilisons une SPA (single page application), et nous ne voulons pas recharger notre page.
+Ainsi, pour la navigation, nous utilisons le component **Link** de react-router-dom.  
+Ce component agit de la même anière qu'une balise hypertext, à l'exception qu'il ne rafraichit pas notre application.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## useState
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+React fonctionne avec un système d'état (state), voir vos cours pour plus d'informations.  
+Afin de modifier notre state, nous utilisons le hook useState().  
+Ce hook prend 3 paramètres:
+1. le nom de votre variable
+2. la fonction pour modifier cette variable
+3. la valeur initiale de la variable
+```javascript
+const [users, setUsers] = useState([])
+```
+La variable se nomme _users_, la fonction est _setUsers_, et la valeur de base est un tableau vide.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## useEffect
 
-### `npm run eject`
+Lorsque que l'on souhaite accéder à des données lors du chargement de notre component, nous utilisons le hook useEffect().  
+useEffect() prend 2 paramètres:  
+1. une fonction callback
+2. une liste de dépendances sous forme de tableau.
+```javascript
+useEffect(() => {
+    {/* Utilisez la fonction utilitaire apiGetter, afin de faire appel à vos endpoints, cf README */}
+    apiGetter('https://jsonplaceholder.typicode.com/users')
+        .then(result => setUsers(result))
+}, [])
+```
+Ici nous appelons la fonction apiGetter lors du chargement de notre component.
+La liste de dépendance reste vide ([]), ce qui signifie que cette fonction ne s'exécute qu'une seule fois.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Helpers
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Je vous ai créé la fonction **apiGetter**, qui appele pour vous une api externe.  
+Je vous invite à l'utiliser et à l'analyser pour voir comment elle fonctionne.  
+Attention: cette fonction n'est définie que pour une méthode de type 'GET'.
